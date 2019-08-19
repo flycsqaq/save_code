@@ -1,8 +1,35 @@
-import React from 'react';
-import Ellipsis from '../ellipsis';
-
+import React, { useState, useEffect } from 'react';
+import Ellipsis from '../ellipsis/ellipsis2';
+import { Tooltip } from '@material-ui/core';
 const CodeHome = () => {
-    const text = '你好啊哈哈哈颠三倒四第三代是否是否凡是凡事都是的的的';
+    const texts = [
+        {
+            str: '你好啊哈哈哈颠三倒四第三代是否是否凡是凡事都是的的的',
+            lines: 2
+        },
+        {
+            str: 'odjskddsndjadfbfjas1323!*()dsjdsk_:dsdsdsdsdsdsd',
+            lines: 2
+        },
+    ];
+
+    const [demo, setDemo] = useState(texts[0]);
+
+    const addLines = () => {
+        setDemo({ ...demo, lines: demo.lines + 1 });
+    };
+
+    const cutLines = () => {
+        setDemo({ ...demo, lines: demo.lines - 1 });
+    };
+
+    const changeStr = () => {
+        setDemo(texts[1]);
+    };
+
+    useEffect(() => {
+        console.log(demo);
+    }, [demo]);
     return (
         <div
             style={{
@@ -10,8 +37,11 @@ const CodeHome = () => {
                 padding: 10,
             }}
         >
-            <Ellipsis text={text} lines={4} />
+            <Ellipsis text={demo.str} lines={demo.lines} />
             123
+            <button onClick={() => addLines()}>+</button>
+            <button onClick={() => cutLines()}>-</button>
+            <button onClick={() => changeStr()}>changeStr</button>
         </div>
     );
 };
